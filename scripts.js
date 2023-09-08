@@ -19,6 +19,7 @@ async function DateFormatFunction(e){
 
 async function searchCity(e="bhubaneswar"){
 
+    document.getElementById("spinner").style.display="flex"
     document.getElementById("cityName").innerHTML=`${e[0].toUpperCase()+e.slice(1)}`
     fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city='+e, options)
     .then(response => response.json())
@@ -36,10 +37,12 @@ async function searchCity(e="bhubaneswar"){
         document.getElementById("sunrise").innerHTML=await DateFormatFunction(response.sunrise)
         document.getElementById("sunset").innerHTML=await DateFormatFunction(response.sunset)
         document.getElementById("wind-speed").innerHTML=response.wind_speed
+
+        window.setTimeout(function() {
+            document.getElementById("spinner").style.display="none"
+          }, 1000);
     })
     .catch(err => console.error(err))
-
-
 }
 
 let submit=document.getElementById("submit-btn")
